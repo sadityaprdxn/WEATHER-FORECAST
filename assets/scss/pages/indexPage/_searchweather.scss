@@ -1,0 +1,57 @@
+.search-weather {
+    padding: 20px 0;
+    background-color: $primaryColor;
+
+    .wrapper { text-align: center; }
+
+    h2 {
+        padding-bottom: 20px;
+        @include textcharacteristics($black, 25px, 300, uppercase);
+        font-family: 'edosz';
+    }
+
+    .error {
+        span {
+            opacity: 1;
+        }
+    }
+
+    input {
+        width: 60%;
+        padding: 15px 20px;
+        border-style: none;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 10px;
+        margin: 0 auto 10px;
+        display: block;
+        @include boxsizing();
+        @include textcharacteristics($secondaryColor, 11px, 400, uppercase);
+        background-color: transparentize($white, 0.4);
+        outline: none;
+
+        @include breakpoint(phone) { width: 100%; }
+    }
+
+    span {
+        padding: 7px;
+        border: 1px solid $red;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        display: inline-block;
+        @include textcharacteristics( transparentize($white , 0.3), 12px, 800, uppercase);
+        background-color: $red;
+        opacity: 0;
+        @include vendor(transition, 0.3s ease-in-out);
+    }
+
+    button {
+        padding: 5px 80px;
+        border-style: none;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+        @include textcharacteristics($white, 15px, 400, capitalize);
+        font-family: 'edosz';
+        letter-spacing: 1px;
+        background-color: $secondaryColor;
+    }
+}

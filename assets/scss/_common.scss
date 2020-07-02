@@ -1,0 +1,44 @@
+/* 1.2. Clear Fix
+   ========================== */
+
+.cf:before,
+.cf:after {
+  display: table;
+  content: " ";
+}
+
+.cf:after { clear: both; }
+.cf { *zoom: 1; }
+
+/*for all*/
+html { scroll-behavior: smooth; }
+
+body {
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+}
+
+a { 
+  display: inline-block;
+  text-decoration: none; 
+}
+
+li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+/*for wrapper*/
+.wrapper {
+  max-width: 1360px;
+  width: 80%; 
+  margin: 0 auto;
+
+  @include breakpoint(notebook) {
+    width: 92%;
+  }
+}
+
+//COMMON CLASSES
+.block { display: block; }
+.none { display: none; }

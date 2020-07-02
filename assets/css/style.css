@@ -1,0 +1,460 @@
+@font-face {
+  src: url("../fonts/Brusher.ttf");
+  font-family: 'brusher';
+}
+
+@font-face {
+  src: url("../fonts/edosz.ttf");
+  font-family: 'edosz';
+}
+
+@font-face {
+  src: url("../fonts/Amel Brush Font.ttf");
+  font-family: 'amel';
+}
+
+/* ==========================================================================
+   1. CSS Reset Code
+   ========================================================================== */
+/* 1.1. Eric Meyers Reset
+   http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+   ========================================================================== */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
+ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure,
+figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* Force scrollbar */
+html {
+  overflow-y: scroll;
+}
+
+/* Align radios and text inputs with their label */
+input[type='radio'] {
+  vertical-align: text-bottom;
+}
+
+/* Hand cursor on clickable input elements */
+label,
+input[type='button'],
+input[type='submit'],
+button {
+  cursor: pointer;
+}
+
+strong {
+  font-weight: bold;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+em {
+  font-style: italic;
+}
+
+img {
+  width: 100%;
+  border: 0;
+  vertical-align: middle;
+}
+
+sub,
+sup {
+  vertical-align: baseline;
+  position: relative;
+  font-size: 55%;
+  line-height: 0;
+}
+
+sup {
+  top: -.7em;
+}
+
+sub {
+  bottom: -.25em;
+}
+
+/* 1.2. Clear Fix
+   ========================== */
+.cf:before,
+.cf:after {
+  display: table;
+  content: " ";
+}
+
+.cf:after {
+  clear: both;
+}
+
+.cf {
+  *zoom: 1;
+}
+
+/*for all*/
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+/*for wrapper*/
+.wrapper {
+  max-width: 1360px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    width: 92%;
+  }
+}
+
+.block {
+  display: block;
+}
+
+.none {
+  display: none;
+}
+
+header {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/chai.jpg") 50% 50% no-repeat;
+  background-size: cover;
+}
+
+header .wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+header .wrapper a:nth-child(2) {
+  padding: 20px 10px;
+  position: relative;
+  color: #FFF;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: 0.3s ease-in-out;
+}
+
+header .wrapper a:nth-child(2)::before {
+  content: '';
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  z-index: 0;
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  background-color: #facc00;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+header .wrapper a:nth-child(2):hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333B50;
+}
+
+header .wrapper a:nth-child(2):hover::before {
+  opacity: 1;
+}
+
+.search-weather {
+  padding: 20px 0;
+  background-color: #facc00;
+}
+
+.search-weather .wrapper {
+  text-align: center;
+}
+
+.search-weather h2 {
+  padding-bottom: 20px;
+  color: #000;
+  font-size: 25px;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-family: 'edosz';
+}
+
+.search-weather .error span {
+  opacity: 1;
+}
+
+.search-weather input {
+  width: 60%;
+  padding: 15px 20px;
+  border-style: none;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 0 auto 10px;
+  display: block;
+  box-sizing: border-box;
+  color: #333B50;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.6);
+  outline: none;
+}
+
+@media screen and (max-width: 767px) {
+  .search-weather input {
+    width: 100%;
+  }
+}
+
+.search-weather span {
+  padding: 7px;
+  border: 1px solid red;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: red;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.search-weather button {
+  padding: 5px 80px;
+  border-style: none;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #FFF;
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: capitalize;
+  font-family: 'edosz';
+  letter-spacing: 1px;
+  background-color: #333B50;
+}
+
+.result {
+  padding: 50px 0;
+  display: none;
+}
+
+.result.active {
+  display: block;
+}
+
+.result li {
+  margin-bottom: 10px;
+  display: block;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.result span {
+  padding: 0 0 5px;
+  display: block;
+  color: #333B50;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.result .todays-data {
+  padding: 20px 0 20px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 767px) {
+  .result .todays-data {
+    padding: 20px 40px;
+    flex-direction: column;
+  }
+  .result .todays-data span {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+}
+
+.result h3 {
+  padding: 0 0 5px;
+  color: #FFF;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 1024px) {
+  .result h3 {
+    padding-bottom: 20px;
+  }
+}
+
+.result figure {
+  width: 60px;
+  margin: 0 auto;
+}
+
+.result .temperature {
+  width: 100px;
+  height: 100px;
+  padding: 10px 30px 10px 50px;
+  border-bottom-left-radius: 80px;
+  border-top-left-radius: 80px;
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transform: translateX(20px);
+  transition: 0.3s ease-in-out;
+}
+
+.result .temperature span {
+  color: #333B50;
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.result .temperature:hover {
+  transform: translateX(0);
+}
+
+@media screen and (max-width: 767px) {
+  .result .temperature {
+    width: 100%;
+    border-radius: 0;
+    transform: translateX(0);
+  }
+}
+
+.result a {
+  display: none;
+}
+
+.result .forecast-data {
+  padding: 30px 0 10px;
+  border-top: 3px solid rgba(255, 255, 255, 0.25);
+  display: none;
+}
+
+.result .forecast-data li {
+  width: 80%;
+  padding: 0 20px;
+  margin: 0 auto 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1024px) {
+  .result .forecast-data li {
+    width: 95%;
+    padding: 20px;
+    flex-direction: column;
+  }
+}
+
+.result .forecast-data.active {
+  display: block;
+}
+
+.result .forecasted-temperature {
+  padding-right: 20px;
+}
+
+.result .forecasted-temperature figure,
+.result .forecasted-temperature span {
+  display: inline-block;
+}
+
+.result .forecasted-weather span {
+  padding: 2px 10px 0;
+  display: inline-block;
+}
+
+.result .forecasted-weather span:first-child {
+  border-right: 2px solid #333B50;
+}
+
+@media screen and (max-width: 540px) {
+  .result .forecasted-weather span {
+    padding: 3px;
+    display: block;
+    text-align: center;
+  }
+  .result .forecasted-weather span:first-child {
+    margin-bottom: 15px;
+    border-right: none;
+    border-bottom: 2px solid #333B50;
+  }
+}
+
+.result .hot {
+  background-color: #F39511;
+}
+
+.result .sunny {
+  background-color: #34B4B2;
+}
+
+.result .danger {
+  background-color: #020d24;
+}
+
+.result .danger span {
+  color: #FFF;
+}
+
+.result .hot-error {
+  background-color: #F39511;
+  padding: 5px 20px;
+}
