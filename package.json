@@ -1,0 +1,22 @@
+{
+  "name": "weather-forecast",
+  "version": "1.0.0",
+  "description": "prdxn-dev-framework ===================",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel assets/babel -d assets/js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sadityaprdxn/WEATHER-FORECAST.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sadityaprdxn/WEATHER-FORECAST/issues"
+  },
+  "homepage": "https://github.com/sadityaprdxn/WEATHER-FORECAST#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
