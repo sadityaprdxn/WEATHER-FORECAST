@@ -3,7 +3,6 @@ export default class fetchData {
 
     // function for getting the data
     getData(url) {
-        debugger;
         return new Promise((resolve, reject) => {
             fetch(url)
                 .then(response => {
@@ -25,30 +24,24 @@ export default class fetchData {
         const citiesData = new Array;
 
         inputArray.forEach(element => {
-            console.log(element);
             element = element.trim();
-            console.log(element);
             const baseUrl = `https://api.openweathermap.org/data/2.5/weather?q=${element}&APPID=${this.key}&units=metric`;
 
             this.getData(baseUrl).then((data) => {
                 if( data ) {
                     citiesData.push(data);
                     if (inputArray.length === citiesData.length) {
-                        console.log(citiesData);
                         this.ShowData(citiesData);
                     }
                 } else if (!data ) {
                     citiesData.push({ code: '400' });
                     if (inputArray.length === citiesData.length) {
-                        console.log(citiesData);
                         this.ShowData(citiesData);
                     }
                 }
             }).catch((err) => {
-                debugger;
                 citiesData.push({ code: '400' })
                 if (inputArray.length === citiesData.length) {
-                    console.log(citiesData);
                     this.ShowData(citiesData);
                 }
             })
@@ -64,7 +57,6 @@ export default class fetchData {
         cityWeatherData.forEach(element => {
             if (!element.code) {
 
-                console.log(element);
                 let {main:{temp,humidity}, sys:{country}, weather:[{main,description,icon}], name, id, wind: {speed}} = element;
                 let condition = null;
 
@@ -76,20 +68,19 @@ export default class fetchData {
                     condition = 'hot';
                 }
 
-                debugger;
-                var liNode = this.createNode('li', result, '');
-                var todaysDataDivNode = this.createNode('div', liNode, '');
-                var cityDetailsDivNode = this.createNode('div', todaysDataDivNode, '');
-                var headingNode = this.createNode('h3', cityDetailsDivNode, `${name}, ${country}`);
-                var spanNode = this.createNode('span', cityDetailsDivNode, `${main}`);
-                var spanNode = this.createNode('span', cityDetailsDivNode, `${description}`);
-                var weatherDivNode = this.createNode('div', todaysDataDivNode, '');
-                var spanNode = this.createNode('span', weatherDivNode, `humidity : &nbsp;&nbsp;&nbsp; ${humidity}%`);
-                var spanNode = this.createNode('span', weatherDivNode, `wind : &nbsp;&nbsp;&nbsp; ${speed} km/h`);
-                var temperatureDivNode = this.createNode('div', todaysDataDivNode, '');
-                var figureNode = this.createNode('figure', temperatureDivNode, `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="${main}">`);
-                var spanNode = this.createNode('span', temperatureDivNode, `${temp}° c`);
-                var anchorNode = this.createNode('a', todaysDataDivNode, `forecast for next 5 days`);
+                let liNode = this.createNode('li', result, '');
+                let todaysDataDivNode = this.createNode('div', liNode, '');
+                let cityDetailsDivNode = this.createNode('div', todaysDataDivNode, '');
+                this.createNode('h3', cityDetailsDivNode, `${name}, ${country}`);
+                this.createNode('span', cityDetailsDivNode, `${main}`);
+                this.createNode('span', cityDetailsDivNode, `${description}`);
+                let weatherDivNode = this.createNode('div', todaysDataDivNode, '');
+                this.createNode('span', weatherDivNode, `humidity : &nbsp;&nbsp;&nbsp; ${humidity}%`);
+                this.createNode('span', weatherDivNode, `wind : &nbsp;&nbsp;&nbsp; ${speed} km/h`);
+                let temperatureDivNode = this.createNode('div', todaysDataDivNode, '');
+                this.createNode('figure', temperatureDivNode, `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="${main}">`);
+                this.createNode('span', temperatureDivNode, `${temp}° c`);
+                let anchorNode = this.createNode('a', todaysDataDivNode, `forecast for next 5 days`);
 
                 liNode.setAttribute('class', condition);
                 todaysDataDivNode.setAttribute('class', 'todays-data');
@@ -110,8 +101,8 @@ export default class fetchData {
 
             } else if (element.code) {
 
-                var liNode = this.createNode('li', result, '');
-                var spanNode = this.createNode('span', liNode, 'sorry cant find the data for entered city');
+                let liNode = this.createNode('li', result, '');
+                this.createNode('span', liNode, 'sorry cant find the data for entered city');
 
                 liNode.setAttribute('class', 'hot-error');
             }
@@ -122,7 +113,7 @@ export default class fetchData {
 
     // function for creating elements
     createNode(node, place, text) {
-        var elementNode = document.createElement(node);
+        let elementNode = document.createElement(node);
         elementNode.innerHTML = text;
         place.appendChild(elementNode);
 
@@ -139,23 +130,21 @@ export default class fetchData {
 
 
             const ulNode = this.createNode('ul', output, '');
-            console.log(data);
 
             let {list} = data
 
             for (let i = 0; i < list.length; i += 8) {
 
                 let {dt_txt, main:{humidity,temp}, wind:{speed}, weather:[{icon}]} = list[i];
-                debugger;
-                var liNode = this.createNode('li', ulNode, '');
-                var forecastedWeatherDivNode = this.createNode('div', liNode, '');
-                var spanNode = this.createNode('span', forecastedWeatherDivNode, `${dt_txt.split(' ')[0]}`);
-                var spanNode = this.createNode('span', forecastedWeatherDivNode, `humidity : &nbsp;&nbsp;&nbsp; ${humidity}%`);
-                var spanNode = this.createNode('span', forecastedWeatherDivNode, `wind : &nbsp;&nbsp;&nbsp; ${speed} km/h`);
-                var temperatureDivNode = this.createNode('div', liNode, '');
-                // var imageId = `${data.list[i].weather[0].icon}`;
-                var figureNode = this.createNode('figure', temperatureDivNode, `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="abc">`);
-                var spanNode = this.createNode('span', temperatureDivNode, `${temp}° c`);
+
+                let liNode = this.createNode('li', ulNode, '');
+                let forecastedWeatherDivNode = this.createNode('div', liNode, '');
+                this.createNode('span', forecastedWeatherDivNode, `${dt_txt.split(' ')[0]}`);
+                this.createNode('span', forecastedWeatherDivNode, `humidity : &nbsp;&nbsp;&nbsp; ${humidity}%`);
+                this.createNode('span', forecastedWeatherDivNode, `wind : &nbsp;&nbsp;&nbsp; ${speed} km/h`);
+                let temperatureDivNode = this.createNode('div', liNode, '');
+                this.createNode('figure', temperatureDivNode, `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="abc">`);
+                this.createNode('span', temperatureDivNode, `${temp}° c`);
 
                 forecastedWeatherDivNode.setAttribute('class', 'forecasted-weather');
                 temperatureDivNode.setAttribute('class', 'forecasted-temperature');

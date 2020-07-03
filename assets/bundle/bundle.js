@@ -22,7 +22,6 @@ var fetchData = function () {
 
         // function for getting the data
         value: function getData(url) {
-            debugger;
             return new Promise(function (resolve, reject) {
                 fetch(url).then(function (response) {
                     if (response.ok) {
@@ -44,30 +43,24 @@ var fetchData = function () {
             var citiesData = new Array();
 
             inputArray.forEach(function (element) {
-                console.log(element);
                 element = element.trim();
-                console.log(element);
                 var baseUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + element + '&APPID=' + _this.key + '&units=metric';
 
                 _this.getData(baseUrl).then(function (data) {
                     if (data) {
                         citiesData.push(data);
                         if (inputArray.length === citiesData.length) {
-                            console.log(citiesData);
                             _this.ShowData(citiesData);
                         }
                     } else if (!data) {
                         citiesData.push({ code: '400' });
                         if (inputArray.length === citiesData.length) {
-                            console.log(citiesData);
                             _this.ShowData(citiesData);
                         }
                     }
                 }).catch(function (err) {
-                    debugger;
                     citiesData.push({ code: '400' });
                     if (inputArray.length === citiesData.length) {
-                        console.log(citiesData);
                         _this.ShowData(citiesData);
                     }
                 });
@@ -83,9 +76,6 @@ var fetchData = function () {
 
             cityWeatherData.forEach(function (element) {
                 if (!element.code) {
-
-                    console.log(element);
-
                     var _element$main = element.main,
                         temp = _element$main.temp,
                         humidity = _element$main.humidity,
@@ -109,19 +99,18 @@ var fetchData = function () {
                         condition = 'hot';
                     }
 
-                    debugger;
                     var liNode = _this2.createNode('li', result, '');
                     var todaysDataDivNode = _this2.createNode('div', liNode, '');
                     var cityDetailsDivNode = _this2.createNode('div', todaysDataDivNode, '');
-                    var headingNode = _this2.createNode('h3', cityDetailsDivNode, name + ', ' + country);
-                    var spanNode = _this2.createNode('span', cityDetailsDivNode, '' + main);
-                    var spanNode = _this2.createNode('span', cityDetailsDivNode, '' + description);
+                    _this2.createNode('h3', cityDetailsDivNode, name + ', ' + country);
+                    _this2.createNode('span', cityDetailsDivNode, '' + main);
+                    _this2.createNode('span', cityDetailsDivNode, '' + description);
                     var weatherDivNode = _this2.createNode('div', todaysDataDivNode, '');
-                    var spanNode = _this2.createNode('span', weatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + humidity + '%');
-                    var spanNode = _this2.createNode('span', weatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + speed + ' km/h');
+                    _this2.createNode('span', weatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + humidity + '%');
+                    _this2.createNode('span', weatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + speed + ' km/h');
                     var temperatureDivNode = _this2.createNode('div', todaysDataDivNode, '');
-                    var figureNode = _this2.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="' + main + '">');
-                    var spanNode = _this2.createNode('span', temperatureDivNode, temp + '\xB0 c');
+                    _this2.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="' + main + '">');
+                    _this2.createNode('span', temperatureDivNode, temp + '\xB0 c');
                     var anchorNode = _this2.createNode('a', todaysDataDivNode, 'forecast for next 5 days');
 
                     liNode.setAttribute('class', condition);
@@ -142,10 +131,10 @@ var fetchData = function () {
                     });
                 } else if (element.code) {
 
-                    var liNode = _this2.createNode('li', result, '');
-                    var spanNode = _this2.createNode('span', liNode, 'sorry cant find the data for entered city');
+                    var _liNode = _this2.createNode('li', result, '');
+                    _this2.createNode('span', _liNode, 'sorry cant find the data for entered city');
 
-                    liNode.setAttribute('class', 'hot-error');
+                    _liNode.setAttribute('class', 'hot-error');
                 }
             });
 
@@ -175,7 +164,6 @@ var fetchData = function () {
             this.getData(contractualUrl).then(function (data) {
 
                 var ulNode = _this3.createNode('ul', output, '');
-                console.log(data);
 
                 var list = data.list;
 
@@ -190,16 +178,14 @@ var fetchData = function () {
                         _list$i$weather = _slicedToArray(_list$i.weather, 1),
                         icon = _list$i$weather[0].icon;
 
-                    debugger;
                     var liNode = _this3.createNode('li', ulNode, '');
                     var forecastedWeatherDivNode = _this3.createNode('div', liNode, '');
-                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, '' + dt_txt.split(' ')[0]);
-                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + humidity + '%');
-                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + speed + ' km/h');
+                    _this3.createNode('span', forecastedWeatherDivNode, '' + dt_txt.split(' ')[0]);
+                    _this3.createNode('span', forecastedWeatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + humidity + '%');
+                    _this3.createNode('span', forecastedWeatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + speed + ' km/h');
                     var temperatureDivNode = _this3.createNode('div', liNode, '');
-                    // var imageId = `${data.list[i].weather[0].icon}`;
-                    var figureNode = _this3.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="abc">');
-                    var spanNode = _this3.createNode('span', temperatureDivNode, temp + '\xB0 c');
+                    _this3.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="abc">');
+                    _this3.createNode('span', temperatureDivNode, temp + '\xB0 c');
 
                     forecastedWeatherDivNode.setAttribute('class', 'forecasted-weather');
                     temperatureDivNode.setAttribute('class', 'forecasted-temperature');
@@ -282,7 +268,6 @@ var validation = function () {
 
         // function for input validate the regex
         value: function validate(input, RegularExpression) {
-            debugger;
             var parent = input.parentNode;
             var regexValidator = /([0-9!@#$%^&*()~<>])/;
 

@@ -19,7 +19,6 @@ var validation = function () {
 
         // function for input validate the regex
         value: function validate(input, RegularExpression) {
-            debugger;
             var parent = input.parentNode;
             var regexValidator = /([0-9!@#$%^&*()~<>])/;
 

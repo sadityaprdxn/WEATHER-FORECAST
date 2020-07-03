@@ -2,7 +2,6 @@ export default class validation {
 
     // function for input validate the regex
     validate(input, RegularExpression) {
-        debugger;
         let parent = input.parentNode;
         let regexValidator =/([0-9!@#$%^&*()~<>])/;
 
