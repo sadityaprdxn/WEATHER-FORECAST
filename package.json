@@ -4,7 +4,7 @@
   "description": "prdxn-dev-framework ===================",
   "main": "index.js",
   "scripts": {
-    "build": "babel assets/babel -d assets/js"
+    "build": "babel assets/babel -d assets/js && browserify assets/js/script.js -o assets/bundle/bundle.js"
   },
   "repository": {
     "type": "git",

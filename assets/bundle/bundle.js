@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21,7 +23,6 @@ var fetchData = function () {
         // function for getting the data
         value: function getData(url) {
             debugger;
-            console.log(url);
             return new Promise(function (resolve, reject) {
                 fetch(url).then(function (response) {
                     if (response.ok) {
@@ -43,6 +44,8 @@ var fetchData = function () {
             var citiesData = new Array();
 
             inputArray.forEach(function (element) {
+                console.log(element);
+                element = element.trim();
                 console.log(element);
                 var baseUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + element + '&APPID=' + _this.key + '&units=metric';
 
@@ -81,11 +84,26 @@ var fetchData = function () {
             cityWeatherData.forEach(function (element) {
                 if (!element.code) {
 
+                    console.log(element);
+
+                    var _element$main = element.main,
+                        temp = _element$main.temp,
+                        humidity = _element$main.humidity,
+                        country = element.sys.country,
+                        _element$weather = _slicedToArray(element.weather, 1),
+                        _element$weather$ = _element$weather[0],
+                        main = _element$weather$.main,
+                        description = _element$weather$.description,
+                        icon = _element$weather$.icon,
+                        name = element.name,
+                        id = element.id,
+                        speed = element.wind.speed;
+
                     var condition = null;
 
-                    if (element.main.temp <= 20) {
+                    if (temp <= 20) {
                         condition = 'danger';
-                    } else if (element.main.temp > 20 && element.main.temp <= 34) {
+                    } else if (temp > 20 && temp <= 34) {
                         condition = 'sunny';
                     } else {
                         condition = 'hot';
@@ -95,15 +113,15 @@ var fetchData = function () {
                     var liNode = _this2.createNode('li', result, '');
                     var todaysDataDivNode = _this2.createNode('div', liNode, '');
                     var cityDetailsDivNode = _this2.createNode('div', todaysDataDivNode, '');
-                    var headingNode = _this2.createNode('h3', cityDetailsDivNode, element.name + ', ' + element.sys.country);
-                    var spanNode = _this2.createNode('span', cityDetailsDivNode, '' + element.weather[0].main);
-                    var spanNode = _this2.createNode('span', cityDetailsDivNode, '' + element.weather[0].description);
+                    var headingNode = _this2.createNode('h3', cityDetailsDivNode, name + ', ' + country);
+                    var spanNode = _this2.createNode('span', cityDetailsDivNode, '' + main);
+                    var spanNode = _this2.createNode('span', cityDetailsDivNode, '' + description);
                     var weatherDivNode = _this2.createNode('div', todaysDataDivNode, '');
-                    var spanNode = _this2.createNode('span', weatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + element.main.humidity + '%');
-                    var spanNode = _this2.createNode('span', weatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + element.wind.speed + ' km/h');
+                    var spanNode = _this2.createNode('span', weatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + humidity + '%');
+                    var spanNode = _this2.createNode('span', weatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + speed + ' km/h');
                     var temperatureDivNode = _this2.createNode('div', todaysDataDivNode, '');
-                    var figureNode = _this2.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + element.weather[0].icon + '@2x.png" alt="' + element.weather[0].main + '">');
-                    var spanNode = _this2.createNode('span', temperatureDivNode, element.main.temp + '\xB0 c');
+                    var figureNode = _this2.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="' + main + '">');
+                    var spanNode = _this2.createNode('span', temperatureDivNode, temp + '\xB0 c');
                     var anchorNode = _this2.createNode('a', todaysDataDivNode, 'forecast for next 5 days');
 
                     liNode.setAttribute('class', condition);
@@ -111,9 +129,9 @@ var fetchData = function () {
                     cityDetailsDivNode.setAttribute('class', 'city-details');
                     weatherDivNode.setAttribute('class', 'weather');
                     temperatureDivNode.setAttribute('class', 'temperature');
-                    temperatureDivNode.setAttribute('data-id', '' + element.id);
+                    temperatureDivNode.setAttribute('data-id', '' + id);
                     anchorNode.setAttribute('href', '#FIXME');
-                    anchorNode.setAttribute('data-id', '' + element.id);
+                    anchorNode.setAttribute('data-id', '' + id);
 
                     temperatureDivNode.addEventListener('click', function () {
                         _this2.forecast(temperatureDivNode);
@@ -159,18 +177,29 @@ var fetchData = function () {
                 var ulNode = _this3.createNode('ul', output, '');
                 console.log(data);
 
-                for (var i = 0; i < data.list.length; i += 8) {
+                var list = data.list;
+
+
+                for (var i = 0; i < list.length; i += 8) {
+                    var _list$i = list[i],
+                        dt_txt = _list$i.dt_txt,
+                        _list$i$main = _list$i.main,
+                        humidity = _list$i$main.humidity,
+                        temp = _list$i$main.temp,
+                        speed = _list$i.wind.speed,
+                        _list$i$weather = _slicedToArray(_list$i.weather, 1),
+                        icon = _list$i$weather[0].icon;
 
                     debugger;
                     var liNode = _this3.createNode('li', ulNode, '');
                     var forecastedWeatherDivNode = _this3.createNode('div', liNode, '');
-                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, '' + data.list[i].dt_txt.split(' ')[0]);
-                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + data.list[i].main.humidity + '%');
-                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + data.list[i].wind.speed + ' km/h');
+                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, '' + dt_txt.split(' ')[0]);
+                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, 'humidity : &nbsp;&nbsp;&nbsp; ' + humidity + '%');
+                    var spanNode = _this3.createNode('span', forecastedWeatherDivNode, 'wind : &nbsp;&nbsp;&nbsp; ' + speed + ' km/h');
                     var temperatureDivNode = _this3.createNode('div', liNode, '');
-                    var imageId = '' + data.list[i].weather[0].icon;
-                    var figureNode = _this3.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + imageId + '@2x.png" alt="abc">');
-                    var spanNode = _this3.createNode('span', temperatureDivNode, data.list[i].main.temp + '\xB0 c');
+                    // var imageId = `${data.list[i].weather[0].icon}`;
+                    var figureNode = _this3.createNode('figure', temperatureDivNode, '<img src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="abc">');
+                    var spanNode = _this3.createNode('span', temperatureDivNode, temp + '\xB0 c');
 
                     forecastedWeatherDivNode.setAttribute('class', 'forecasted-weather');
                     temperatureDivNode.setAttribute('class', 'forecasted-temperature');
