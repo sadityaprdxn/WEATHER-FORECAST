@@ -23,8 +23,7 @@ window.onload = () => {
 
             if ( inputField.parentElement.classList.contains('success')) {
                 
-                let inputArray = inputField.value.toLowerCase().split(',');
-                console.log(inputArray);
+                const inputArray = inputField.value.toLowerCase().split(',');
 
                 fetchDataNew.weatherData(inputArray);
 

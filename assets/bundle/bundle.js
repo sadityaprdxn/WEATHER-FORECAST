@@ -237,7 +237,6 @@ window.onload = function () {
             if (inputField.parentElement.classList.contains('success')) {
 
                 var inputArray = inputField.value.toLowerCase().split(',');
-                console.log(inputArray);
 
                 fetchDataNew.weatherData(inputArray);
             } else if (inputField.parentElement.classList = 'form-group') {
